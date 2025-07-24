@@ -15,57 +15,12 @@ Tenga en mente las metas de la ONU para terminar con la Tuberculosis para 2025:
 
 ## Código de limpieza de datos - código en Python 
 
-- Cargar archivos CSV
-
-inmport padas as pd
-who_df= pd.read_csv("/content/drive/MyDrive/Recursos Colab/who.csv")
-population_df = pd.read_csv("/content/drive/MyDrive/Recursos Colab/population.csv")
-
-- Convertir columnas anchas en formato largo
-
-who_long = who_df.melt(
-    id_vars=["country", "iso2", "iso3", "year"],
-    var_name="indicator",
-    value_name="cases"
-)
-
-- Eliminar valores nulos
-  
-who_long = who_long.dropna(subset=["cases"])
-
-- Filtrar indicadores que comienzan con 'new'
-  
-who_long = who_long[who_long["indicator"].str.startswith("new")]
-
-- Quitar el prefijo 'new' y los guiones bajos
-  
-who_long["indicator"] = who_long["indicator"].str.replace("new", "", regex=False)
-who_long["indicator"] = who_long["indicator"].str.replace("_", "", regex=False)
-
-- Extraer tipo, sexo y edad desde el string del indicador
-  
-who_long["type"] = who_long["indicator"].str.extract(r"([a-z]+)")
-who_long["sex"] = who_long["indicator"].str.extract(r"([mf])")
-who_long["age"] = who_long["indicator"].str.extract(r"(\d{2,3})")
-
-- Eliminar columna original
-  
-who_long = who_long.drop(columns=["indicator"])
-
-- Unir con el archivo de población
-  
-combined_df = pd.merge(who_long, population_df, on=["country", "year"], how="left")
-
-- Calcular tasa de incidencia por cada 100,000 habitantes
-  
-combined_df["incidence_rate"] = (combined_df["cases"] / combined_df["population"]) * 100000
-
--Exportar datos limpios a CSV
-
-combined_df.to_csv("datos_limpios_tb.csv", index=False)
-
-print("Datos limpios guardados como 'datos_limpios_tb.csv'")
+Se adjunta codigo de limpieza en anexos.
 
 ## Análisis exploratorio - formato libre, entrega en PDF 
+Se adjunta condigo del analisis exploratorio en Python.
 
 ## Lámina con resumen ejecutivo - máximo 2 láminas, entrega en PDF
+<img width="992" height="745" alt="image" src="https://github.com/user-attachments/assets/c2a41266-9763-4c98-9dc7-a59ee5182974" />
+
+<img width="965" height="734" alt="image" src="https://github.com/user-attachments/assets/cabc0bb5-4975-4fc8-a609-765c8f08358d" />
